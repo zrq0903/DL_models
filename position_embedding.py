@@ -15,8 +15,8 @@ class position_embedding(nn.Module):
         self.encoding[:,1::2]=torch.cos(out) #(n,dim)
     def forward(self,x):
         seq_len = x.shape[1]
-        return self.encoding[:seq_len,:]
-
+        return self.encoding[:seq_len,:]# ensuring the positional embeddings are only applied to the valid sequence length.
+# to add the word embedding or we can write  return x + self.encoding[:seq_len,:]
 
 class TokenEmbedding(nn.Embedding):
     def __init__(self,vocab_size, d_modal):
